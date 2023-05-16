@@ -43,7 +43,7 @@ fun BottomAppBarMain(
 
 @Preview
 @Composable
-fun AndromedaBottomAppBarPreview() {
+fun BottomAppBarMainPreview() {
     AndromedaAITheme {
         BottomAppBarMain(
             item = bottomAppBarItems.first(),

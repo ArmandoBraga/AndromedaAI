@@ -10,7 +10,7 @@ import com.bragasoftwares.andromedaai.menus.BottomAppBarItem
 
 val bottomAppBarItems = listOf(
     BottomAppBarItem(
-        label = "Início",
+        label = "Home",
         icon = Icons.Filled.Home
     ),
     BottomAppBarItem(
