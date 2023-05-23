@@ -22,9 +22,11 @@ import com.bragasoftwares.andromedaai.sampledata.bottomAppBarItems
 import com.bragasoftwares.andromedaai.ui.theme.AndromedaAITheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.bragasoftwares.andromedaai.data.exampleUiState
 import com.bragasoftwares.andromedaai.menus.BottomAppBarItem
 import com.bragasoftwares.andromedaai.menus.BottomAppBarMain
 import com.bragasoftwares.andromedaai.menus.TopBarMain
+import com.bragasoftwares.andromedaai.screens.Conversa
 import com.bragasoftwares.andromedaai.screens.HomeScreen
 import com.bragasoftwares.andromedaai.screens.MensagensScreen
 import com.bragasoftwares.andromedaai.screens.NoticiasScreen
@@ -91,16 +93,16 @@ class MainActivity : ComponentActivity() {
                     onItemChange = onBottomAppBarItemSelectedChange,
                 )
             },
-            floatingActionButton = {
-                FloatingActionButton(
-                    onClick = onFabClick
-                ) {
-                    Icon(
-                        Icons.Filled.Call,
-                        contentDescription = null
-                    )
-                }
-            }
+ //           floatingActionButton = {
+ //               FloatingActionButton(
+ //                   onClick = onFabClick
+   //             ) {
+   //                 Icon(
+  ///                      Icons.Filled.Call,
+  //                      contentDescription = null
+   //                 )
+    //            }
+  //          }
         ) {
             Box(
                 modifier = Modifier.padding(it)
@@ -117,7 +119,8 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun TelaAtual(tela: String): @Composable () -> Unit {
         return when (tela) {
-            "Home" -> HomeScreen()
+            "Home" ->     Conversa( uiState = exampleUiState,
+                navigateToProfile = { })
             "Mensagens" -> MensagensScreen()
             "Notícias" -> NoticiasScreen()
             else -> NoticiasScreen()
