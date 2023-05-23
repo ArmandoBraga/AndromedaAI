@@ -57,6 +57,7 @@ import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Shape
 
 
 
@@ -385,12 +386,13 @@ fun Conversa(
                     textStyle = LocalTextStyle.current.copy(color = LocalContentColor.current),
                     enabled = true,
                     value = textFieldValue.value,
+                    shape= MaterialTheme.shapes.large,
                     onValueChange = {
                         textFieldValue.value = it
                         isEnabled.value = textFieldValue.value.isNotBlank()
                     },
 
-                    label = { Text("Faça uma pergunta") }
+                    label = { Text("Faça uma pergunta.") }
                 )
                 Button(
                     modifier = Modifier.padding(start = 16.dp),
@@ -510,8 +512,9 @@ fun AlignedSurface() {
                 textStyle= LocalTextStyle.current.copy(color = LocalContentColor.current),
                 enabled = true,
                 value = textFieldValue.value,
+                shape= MaterialTheme.shapes.extraLarge,
                 onValueChange = { textFieldValue.value = it },
-                label = { Text("Faça uma pergunta") }
+                label = { Text("Faça uma perguntannn") }
             )
             Button(
                 modifier = Modifier.padding(start = 16.dp),
