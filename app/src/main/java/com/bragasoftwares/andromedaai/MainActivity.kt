@@ -30,6 +30,7 @@ import com.bragasoftwares.andromedaai.screens.Conversa
 import com.bragasoftwares.andromedaai.screens.HomeScreen
 import com.bragasoftwares.andromedaai.screens.MensagensScreen
 import com.bragasoftwares.andromedaai.screens.NoticiasScreen
+import com.example.myapplicationai5.OpenAI
 
 
 var itemSelecionado : String = "Home"
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
                         bottomAppBarItemSelected = selectedItem,
                         onBottomAppBarItemSelectedChange = {
                             selectedItem = it
-                            //   screens.add(it.label)
+                                                       //   screens.add(it.label)
                         },
                         onFabClick = {
                             //floateactionbutton  screens.add("Pedido")
@@ -115,10 +116,13 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    //val openAI = OpenAI("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","Qual a versao do chate gpt usa")
 
     @Composable
     fun TelaAtual(tela: String): @Composable () -> Unit {
         return when (tela) {
+
+
             "Home" ->     Conversa( uiState = exampleUiState,
                 navigateToProfile = { })
             "Mensagens" -> MensagensScreen()

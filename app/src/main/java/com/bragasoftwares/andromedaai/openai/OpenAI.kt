@@ -1,5 +1,16 @@
 package com.example.myapplicationai5
 
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
+import com.bragasoftwares.andromedaai.R
+import com.bragasoftwares.andromedaai.screens.ConversationUiState
+import com.bragasoftwares.andromedaai.screens.Message
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -7,6 +18,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
@@ -46,3 +58,4 @@ class OpenAI(private val apiKey: String, private val prompt: String) {
         }
     }
 }
+

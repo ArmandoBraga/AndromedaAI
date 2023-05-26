@@ -56,10 +56,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFrom
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Shape
-
-
+import com.example.myapplicationai5.OpenAI
+import org.json.JSONException
+import org.json.JSONObject
 
 
 const val ConversationTestTag = "ConversationTestTag"
@@ -361,6 +364,10 @@ fun Conversa(
         val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topBarState)
         val scope = rememberCoroutineScope()
 
+        var resultAI by remember { mutableStateOf("") }
+
+
+
         Column(
             Modifier.fillMaxSize()
             // .padding(paddingValues)
@@ -380,6 +387,33 @@ fun Conversa(
 
                 val textFieldValue = remember { mutableStateOf("") }
                 val isEnabled = remember { mutableStateOf(false) }
+
+                var resultAI by remember { mutableStateOf("") }
+
+                val openAI = OpenAI("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",textFieldValue.value)
+
+                SideEffect {
+                    openAI.callAPI { apiResult ->
+                        try {
+                            val jsonObject = JSONObject(apiResult)
+
+                            val jsonArray = jsonObject.getJSONArray("choices")
+
+                            val result = jsonArray.getJSONObject(0).getString("text")
+
+                            //   val result = jsonObject.getJSONObject("choices")
+                            //       val text = result.getString("texto")
+                            resultAI= result.trim { it <= ' ' };
+                            // processar a resposta aqui
+                        } catch (e: JSONException) {
+                            e.printStackTrace();
+                            // lidar com o erro de análise JSON
+                        }
+
+
+                    }
+                }
+
 
                 TextField(
                     modifier = Modifier.weight(1f),
@@ -401,6 +435,10 @@ fun Conversa(
                         uiState.addMessage(Message(authorMe, textFieldValue.value, timeNow))
                         textFieldValue.value = ""
                         isEnabled.value = false
+
+
+                       uiState.addMessage(Message("Andromeda AI", resultAI, timeNow))
+
                     }
                 ) {
                     Text("Enviar")
@@ -410,13 +448,53 @@ fun Conversa(
     }
 }
 
+
+
+@Composable
+fun RespostaOpenAi(openAI: OpenAI, uiState: ConversationUiState)  {
+
+    var resultAI by remember { mutableStateOf("") }
+    val authorMe = stringResource(R.string.author_me)
+    val timeNow = stringResource(id = R.string.now)
+
+
+    SideEffect {
+        openAI.callAPI { apiResult ->
+            try {
+                val jsonObject = JSONObject(apiResult)
+
+                val jsonArray = jsonObject.getJSONArray("choices")
+
+                val result = jsonArray.getJSONObject(0).getString("text")
+
+                //   val result = jsonObject.getJSONObject("choices")
+                //       val text = result.getString("texto")
+                resultAI= result.trim { it <= ' ' };
+                // processar a resposta aqui
+            } catch (e: JSONException) {
+                e.printStackTrace();
+                // lidar com o erro de análise JSON
+            }
+
+
+        }
+    }
+    uiState.addMessage(Message(authorMe, resultAI, timeNow))
+   // Text(text = resultAI)
+}
+
+
+
 @Preview
 @Composable
 fun ConversaPreview() {
+    val openAI = OpenAI("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","Qual a versao do chate gpt usa")
+
     AndromedaAITheme {
         Conversa(
             uiState = exampleUiState,
-            navigateToProfile = { }
+            navigateToProfile = { },
+
         )
     }
 }
