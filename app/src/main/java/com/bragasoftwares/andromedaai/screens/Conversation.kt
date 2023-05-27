@@ -390,7 +390,7 @@ fun Conversa(
 
                 var resultAI by remember { mutableStateOf("") }
 
-                val openAI = OpenAI("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",textFieldValue.value)
+                val openAI = OpenAI("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",textFieldValue.value)
 
                 SideEffect {
                     openAI.callAPI { apiResult ->
@@ -488,7 +488,7 @@ fun RespostaOpenAi(openAI: OpenAI, uiState: ConversationUiState)  {
 @Preview
 @Composable
 fun ConversaPreview() {
-    val openAI = OpenAI("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","Qual a versao do chate gpt usa")
+    val openAI = OpenAI("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","Qual a versao do chate gpt usa")
 
     AndromedaAITheme {
         Conversa(
